@@ -17,7 +17,7 @@ public class StudentService {
         studentsStorage.putStudent(student);
     }
 
-    public void replaceStudent(StudentDto student) {
+    public void updateStudent(StudentDto student) {
         if (studentsStorage.containsStudent(student.studentId())) {
             studentsStorage.putStudent(student);
         }

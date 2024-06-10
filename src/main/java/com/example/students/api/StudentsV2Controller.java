@@ -1,41 +1,43 @@
 package com.example.students.api;
 
 import com.example.students.domain.StudentService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Управление студентами")
 @RestController
-@RequestMapping(path = "/api/v1/students")
-public class StudentsController {
+@RequestMapping(path = "/api/v2/students")
+public class StudentsV2Controller {
 
     private StudentService studentService;
 
-    public StudentsController(StudentService studentService) {
+    public StudentsV2Controller(StudentService studentService) {
         this.studentService = studentService;
     }
 
     @GetMapping("/{id}")
-    @Operation(deprecated = true)
     public StudentDto getStudent(@PathVariable Integer id) {
         return studentService.getStudent(id);
     }
 
     @PostMapping
-    @Operation(deprecated = true)
     public void postStudent(@RequestBody StudentDto student) {
         studentService.addStudent(student);
     }
 
     @PutMapping
-    @Operation(deprecated = true)
     public void putStudent(@RequestBody StudentDto student) {
         studentService.updateStudent(student);
     }
 
     @DeleteMapping("/{id}")
-    @Operation(deprecated = true)
     public boolean deleteStudent(@PathVariable Integer id) {
         return studentService.deleteStudent(id);
     }
