@@ -1,6 +1,7 @@
 package com.example.students.domain.services;
 
 import com.example.students.domain.entities.GroupEntity;
+import com.example.students.domain.entities.StudentEntity;
 import com.example.students.persistance.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,20 @@ public class GroupService {
     }
 
     @Transactional
-    public GroupEntity createGroup(String number) {
-        var entity = new GroupEntity();
-        entity.setNumber(number);
-        return groupRepository.save(entity);
+    public GroupEntity createGroup(String number, List<String> students) {
+        var groupEntity = new GroupEntity();
+        groupEntity.setNumber(number);
+
+        var studentEntitites = students.stream()
+                .map(studentName -> {
+                    var studentEntity = new StudentEntity();
+                    studentEntity.setName(studentName);
+                    return studentEntity;
+                }).toList();
+
+        groupEntity.setStudents(studentEntitites);
+
+        return groupRepository.save(groupEntity);
     }
 
     @Transactional
